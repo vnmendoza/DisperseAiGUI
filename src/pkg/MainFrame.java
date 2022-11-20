@@ -147,5 +147,6 @@ public class MainFrame extends JFrame {
 		//panelDensityPic.add(picLabel);
 		contentPane.add(panelDensityPic);
 		
+		
 	}
 }
