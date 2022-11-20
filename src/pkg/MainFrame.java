@@ -24,7 +24,9 @@ import javax.swing.Icon;
 public class MainFrame extends JFrame {
 	File originalPic;
 	String picPath = "src/pkg/pics/IMG_5.jpg";
-
+	JPanel panelOGPic;
+	JLabel picLabel;
+	
 	private JPanel contentPane;
 
 	/**
@@ -36,7 +38,7 @@ public class MainFrame extends JFrame {
 				try {
 					MainFrame frame = new MainFrame();
 					frame.setVisible(true);
-					frame.setResizable(false);
+					frame.setResizable(false); 
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -65,6 +67,26 @@ public class MainFrame extends JFrame {
 		lblDisperseAi.setBounds(621, 11, 144, 47);
 		contentPane.add(lblDisperseAi);
 		
+		
+		panelOGPic = new JPanel();
+		//Default Original Picture
+		BufferedImage myPicture;
+		//String picPath = "src/pkg/pics/IMG_5.jpg";
+		//String picPath =  originalPic.
+		try {
+			myPicture = ImageIO.read(new File(picPath));
+			picLabel = new JLabel(new ImageIcon(myPicture));
+			panelOGPic.add(picLabel);
+			
+
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		panelOGPic.setBounds(45, 69, 627, 420);
+		contentPane.add(panelOGPic);
+		//panelOGPic.get
+		
 		JButton btnUpload = new JButton("Upload JPG");
 		String floc = "";
 		btnUpload.putClientProperty("fileLocation", floc);
@@ -79,6 +101,17 @@ public class MainFrame extends JFrame {
 		            picPath = originalPic.getAbsolutePath();
 		            //final String pPath = tempPath;
 		            //((JButton)e.getSource()).getClientProperty("fileLocation");
+		            
+		            BufferedImage oPic = null;
+					try {
+						oPic = ImageIO.read(new File(picPath));
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+					
+		            picLabel.setIcon(new ImageIcon(oPic));
+		            
 				}
 			}
 		});
@@ -107,24 +140,6 @@ public class MainFrame extends JFrame {
 		lblNumber.setText("100");
 		contentPane.add(lblNumber);
 		
-		JPanel panelOGPic = new JPanel();
-		//Default Original Picture
-		BufferedImage myPicture;
-		//String picPath = "src/pkg/pics/IMG_5.jpg";
-		//String picPath =  originalPic.
-		try {
-			myPicture = ImageIO.read(new File(picPath));
-			JLabel picLabel = new JLabel(new ImageIcon(myPicture));
-			panelOGPic.add(picLabel);
-			
-
-		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		panelOGPic.setBounds(45, 69, 627, 420);
-		contentPane.add(panelOGPic);
-		//panelOGPic.get
 		
 		
 		//
