@@ -22,18 +22,38 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.util.Vector;
 import java.awt.event.ActionEvent;
 import javax.swing.Icon;
 
 public class MainFrame extends JFrame {
 	File originalPic;
+	
+	String MarcoCSR = "C:\\Users\\Marco\\CSRNet-crowd_analysis\\";
+	String MarcoConda = "C:\\Users\\Marco\\anaconda3\\condabin\\activate.bat py37";
+	
+	String VictorCSR = "C:\\Users\\VNMen\\Documents\\SrDesign\\CSRNet-crowd_analysis\\";
+	String VictorConda = "C:\\Users\\VNMen\\anaconda3\\condabin\\activate.bat python37";
+	
+	String NataliaCSR = "";
+	String NataliaConda = "";
+	
+	String AlexaCSR = "";
+	String AlexaConda = "";
+	
+	
+	
 	String picPath = "IMG_5.jpg";
 	String dPicPath = "DensityMap_Predicted.jpg";
-	String csrNetPath = "C:\\Users\\VNMen\\Documents\\SrDesign\\CSRNet-crowd_analysis\\";
-	String condaLocation = "C:\\Users\\VNMen\\anaconda3\\condabin\\activate.bat python37";
+	
+	String csrNetPath = "";
+	String condaLocation = "";
+	
 	JPanel panelOGPic;
 	JLabel picLabel;
+	JLabel lblNumber = new JLabel("number");
 	String defaultImagesPath = csrNetPath + "Shanghai\\part_A_final\\test_data\\images";
+	String modelName = "ckpts\\model.pth.tar ";
 	
 	private JPanel contentPane;
 
@@ -58,6 +78,17 @@ public class MainFrame extends JFrame {
 	 * Create the frame.
 	 */
 	public MainFrame() {
+		
+		/*
+		 * Marco
+		 * Victor
+		 * Alexa
+		 * Natalia
+		 */
+		StrSetAdmin("Victor"); //set your name to get the right path
+		
+		defaultImagesPath = csrNetPath + "Shanghai\\part_A_final\\test_data\\images";
+		
 		//Global Vars
 		//File originalPic = new File(picPath);
 		
@@ -127,15 +158,20 @@ public class MainFrame extends JFrame {
 		btnSubmit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					String modelPath = "python " + csrNetPath + "analyze.py " + csrNetPath + "ckpts\\model.pth.tar ";
+					String modelPath = "python " + csrNetPath + "analyze.py " + csrNetPath + modelName;
 					String batLocation = "runAi.bat";
 					PrintWriter out = new PrintWriter(batLocation);
 					out.println("call " + condaLocation);
 					out.println("python --version");
 					out.println(modelPath + picPath);
 					out.close();
-					batLocation = "cmd /c start \"\" " + batLocation;
-					Runtime.getRuntime().exec(batLocation);
+					//batLocation = "cmd /c start \"\" " + batLocation;
+					Process p = Runtime.getRuntime().exec(batLocation);
+					//Show_Output(p);
+					Vector<String> output = new Vector<String>(Record_Count(p));
+					String pplCount = (output.elementAt(output.size()-1));
+					lblNumber.setText(pplCount);
+					System.out.println("End");
 				} catch (IOException e1) {
 					e1.printStackTrace();
 				}
@@ -151,7 +187,6 @@ public class MainFrame extends JFrame {
 		lblCount.setBounds(621, 500, 55, 53);
 		contentPane.add(lblCount);
 		
-		JLabel lblNumber = new JLabel("number");
 		lblNumber.setFont(new Font("Tahoma", Font.PLAIN, 17));
 		lblNumber.setBounds(686, 516, 88, 21);
 		lblNumber.setText("100");
@@ -187,4 +222,50 @@ public class MainFrame extends JFrame {
             System.out.println(output);
         }
     }
+	public static Vector<String> Record_Count(Process process) throws IOException {
+        BufferedReader output_reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+        Vector<String> outputVec = new Vector<String>();
+        String output= "";
+        while ((output = output_reader.readLine()) != null) {
+            System.out.println(output);
+            outputVec.add(output);;
+        }
+        //System.out.println("output vec size: " + outputVec.size());
+        return outputVec;
+    }
+	public void StrSetAdmin(String admin)
+	{
+		/*
+		 * Marco
+		 * Victor
+		 * Alexa
+		 * Natalia
+		 */
+		
+		if(admin == "Victor")
+		{
+			csrNetPath = VictorCSR;
+			condaLocation = VictorConda;
+			modelName = "ckpts\\model.pth.tar ";
+		}
+		else if (admin == "Marco")
+		{
+			csrNetPath = MarcoCSR;
+			condaLocation = MarcoConda;
+			modelName = "ckpts\\model-76.28.pth.tar ";
+		}
+		else if (admin == "Alexa")
+		{
+			csrNetPath = AlexaCSR;
+			condaLocation = AlexaConda;
+			modelName = "ckpts\\model-76.28.pth.tar ";
+		}
+		else if (admin == "Natalia")
+		{
+			csrNetPath = NataliaCSR;
+			condaLocation = NataliaConda;
+			modelName = "ckpts\\model-76.28.pth.tar ";
+		}
+		
+	}
 }
