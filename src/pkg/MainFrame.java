@@ -27,9 +27,13 @@ import javax.swing.Icon;
 
 public class MainFrame extends JFrame {
 	File originalPic;
-	String picPath = "src/pkg/pics/IMG_5.jpg";
+	String picPath = "IMG_5.jpg";
+	String dPicPath = "DensityMap_Predicted.jpg";
+	String csrNetPath = "C:\\Users\\VNMen\\Documents\\SrDesign\\CSRNet-crowd_analysis\\";
+	String condaLocation = "C:\\Users\\VNMen\\anaconda3\\condabin\\activate.bat python37";
 	JPanel panelOGPic;
 	JLabel picLabel;
+	String defaultImagesPath = csrNetPath + "Shanghai\\part_A_final\\test_data\\images";
 	
 	private JPanel contentPane;
 
@@ -62,7 +66,7 @@ public class MainFrame extends JFrame {
 		setBounds(100, 100, 1413, 815);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		JFileChooser fc = new JFileChooser("C:\\Users\\VNMen\\Documents\\SrDesign\\CSRNet-crowd_analysis\\Shanghai\\part_A_final\\test_data\\images");
+		JFileChooser fc = new JFileChooser(defaultImagesPath);
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
@@ -107,7 +111,6 @@ public class MainFrame extends JFrame {
 					try {
 						oPic = ImageIO.read(new File(picPath));
 					} catch (IOException e1) {
-						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
 					
@@ -123,27 +126,17 @@ public class MainFrame extends JFrame {
 		JButton btnSubmit = new JButton("Submit");
 		btnSubmit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//String[] cmd = {"echo", "hi"};
-				//String cmd = "python C:\\Users\\VNMen\\Documents\\SrDesign\\CSRNet-crowd_analysis\\analyze.py C:\\Users\\VNMen\\Documents\\SrDesign\\CSRNet-crowd_analysis\\ckpts\\model.pth.tar C:\\Users\\VNMen\\Documents\\SrDesign\\CSRNet-crowd_analysis\\ckpts\\Shanghai\\part_A_final\\test_data\\images\\IMG_2.jpg; dir";
-
-				String[] cmd = {"call C:\\Users\\VNMen\\anaconda3\\condabin\\activate.bat python37"
-						,"python --version",
-						"python C:\\Users\\VNMen\\Documents\\SrDesign\\CSRNet-crowd_analysis\\analyze.py C:\\Users\\VNMen\\Documents\\SrDesign\\CSRNet-crowd_analysis\\ckpts\\model.pth.tar C:\\Users\\VNMen\\Documents\\SrDesign\\CSRNet-crowd_analysis\\Shanghai\\part_A_final\\test_data\\images\\IMG_2.jpg"
-						};
-				
 				try {
-					String modelPath = "python C:\\Users\\VNMen\\Documents\\SrDesign\\CSRNet-crowd_analysis\\analyze.py C:\\Users\\VNMen\\Documents\\SrDesign\\CSRNet-crowd_analysis\\ckpts\\model.pth.tar ";
-					PrintWriter out = new PrintWriter("runAi.bat");
-					out.println("call C:\\Users\\VNMen\\anaconda3\\condabin\\activate.bat python37");
+					String modelPath = "python " + csrNetPath + "analyze.py " + csrNetPath + "ckpts\\model.pth.tar ";
+					String batLocation = "runAi.bat";
+					PrintWriter out = new PrintWriter(batLocation);
+					out.println("call " + condaLocation);
 					out.println("python --version");
 					out.println(modelPath + picPath);
 					out.close();
-					//Process runtime = Runtime.getRuntime().exec(cmd[0]);
-					Runtime.getRuntime().exec("cmd /c start \"\" runAi.bat");
-					//Show_Output(runtime);
+					batLocation = "cmd /c start \"\" " + batLocation;
+					Runtime.getRuntime().exec(batLocation);
 				} catch (IOException e1) {
-					//TODO Create more TOdos
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 								
@@ -172,7 +165,7 @@ public class MainFrame extends JFrame {
 		contentPane.add(panelDensityPic);
 		//Default Density Picture
 		BufferedImage dPic;
-		String dPicPath = "src/pkg/pics/DensityMap_Predicted.png"; 
+		dPicPath = "DensityMap_Predicted.png"; 
 		try {
 			dPic = ImageIO.read(new File(dPicPath));
 			Image scaledDpic = dPic.getScaledInstance(panelDensityPic.getWidth(), panelDensityPic.getHeight(), DO_NOTHING_ON_CLOSE);
