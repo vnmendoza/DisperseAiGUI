@@ -28,10 +28,27 @@ import javax.swing.Icon;
 
 public class MainFrame extends JFrame {
 	File originalPic;
+	
+	String MarcoCSR = "C:\\Users\\Marco\\CSRNet-crowd_analysis\\";
+	String MarcoConda = "C:\\Users\\Marco\\anaconda3\\condabin\\activate.bat py37";
+	
+	String VictorCSR = "C:\\Users\\VNMen\\Documents\\SrDesign\\CSRNet-crowd_analysis\\";
+	String VictorConda = "C:\\Users\\VNMen\\anaconda3\\condabin\\activate.bat python37";
+	
+	String NataliaCSR = "";
+	String NataliaConda = "";
+	
+	String AlexaCSR = "";
+	String AlexaConda = "";
+	
+	
+	
 	String picPath = "IMG_5.jpg";
 	String dPicPath = "DensityMap_Predicted.jpg";
-	String csrNetPath = "C:\\Users\\VNMen\\Documents\\SrDesign\\CSRNet-crowd_analysis\\";
-	String condaLocation = "C:\\Users\\VNMen\\anaconda3\\condabin\\activate.bat python37";
+	
+	String csrNetPath = "";
+	String condaLocation = "";
+	
 	JPanel panelOGPic;
 	JLabel picLabel;
 	JLabel lblNumber = new JLabel("number");
@@ -60,6 +77,16 @@ public class MainFrame extends JFrame {
 	 * Create the frame.
 	 */
 	public MainFrame() {
+		
+		/*
+		 * Marco
+		 * Victor
+		 * Alexa
+		 * Natalia
+		 */
+		StrSetAdmin("Marco"); //set your name to get the right path
+		
+		
 		//Global Vars
 		//File originalPic = new File(picPath);
 		
@@ -129,7 +156,7 @@ public class MainFrame extends JFrame {
 		btnSubmit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					String modelPath = "python " + csrNetPath + "analyze.py " + csrNetPath + "ckpts\\model.pth.tar ";
+					String modelPath = "python " + csrNetPath + "analyze.py " + csrNetPath + "ckpts\\model-76.28.pth.tar";
 					String batLocation = "runAi.bat";
 					PrintWriter out = new PrintWriter(batLocation);
 					out.println("call " + condaLocation);
@@ -204,4 +231,35 @@ public class MainFrame extends JFrame {
         //System.out.println("output vec size: " + outputVec.size());
         return outputVec;
     }
+	public void StrSetAdmin(String admin)
+	{
+		/*
+		 * Marco
+		 * Victor
+		 * Alexa
+		 * Natalia
+		 */
+		
+		if(admin == "Victor")
+		{
+			csrNetPath = VictorCSR;
+			condaLocation = VictorConda;
+		}
+		else if (admin == "Marco")
+		{
+			csrNetPath = MarcoCSR;
+			condaLocation = MarcoConda;
+		}
+		else if (admin == "Alexa")
+		{
+			csrNetPath = AlexaCSR;
+			condaLocation = AlexaConda;
+		}
+		else if (admin == "Natalia")
+		{
+			csrNetPath = NataliaCSR;
+			condaLocation = NataliaConda;
+		}
+		
+	}
 }
