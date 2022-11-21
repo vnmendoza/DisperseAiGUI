@@ -16,8 +16,10 @@ import javax.swing.JFileChooser;
 
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.awt.event.ActionEvent;
 import javax.swing.Icon;
 
@@ -99,9 +101,6 @@ public class MainFrame extends JFrame {
 					System.out.println("File Name: " + originalPic.getName());
 		            System.out.println("File Location: " + originalPic.getAbsolutePath());
 		            picPath = originalPic.getAbsolutePath();
-		            //final String pPath = tempPath;
-		            //((JButton)e.getSource()).getClientProperty("fileLocation");
-		            
 		            BufferedImage oPic = null;
 					try {
 						oPic = ImageIO.read(new File(picPath));
@@ -122,7 +121,18 @@ public class MainFrame extends JFrame {
 		JButton btnSubmit = new JButton("Submit");
 		btnSubmit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				//String[] cmd = {"echo", "hi"};
+				//String cmd = "python C:\\Users\\VNMen\\Documents\\SrDesign\\CSRNet-crowd_analysis\\analyze.py C:\\Users\\VNMen\\Documents\\SrDesign\\CSRNet-crowd_analysis\\ckpts\\model.pth.tar C:\\Users\\VNMen\\Documents\\SrDesign\\CSRNet-crowd_analysis\\ckpts\\Shanghai\\part_A_final\\test_data\\images\\IMG_2.jpg; dir";
+				String cmd = "python C:\\Users\\VNMen\\Documents\\SrDesign\\CSRNet-crowd_analysis\\helloworld.py";
+				try {
+					 Process runtime = Runtime.getRuntime().exec(cmd);
+				     Show_Output(runtime);
+				} catch (IOException e1) {
+					//TODO Create more TOdos
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+								
 			}
 		});
 		btnSubmit.setFont(new Font("Tahoma", Font.PLAIN, 14));
@@ -163,4 +173,11 @@ public class MainFrame extends JFrame {
 		contentPane.add(panelDensityPic);
 		
 	}
+	public static void Show_Output(Process process) throws IOException {
+        BufferedReader output_reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+        String output = "";
+        while ((output = output_reader.readLine()) != null) {
+            System.out.println(output);
+        }
+    }
 }
