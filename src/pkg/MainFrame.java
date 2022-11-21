@@ -53,6 +53,7 @@ public class MainFrame extends JFrame {
 	JLabel picLabel;
 	JLabel lblNumber = new JLabel("number");
 	String defaultImagesPath = csrNetPath + "Shanghai\\part_A_final\\test_data\\images";
+	String modelName = "ckpts\\model.pth.tar ";
 	
 	private JPanel contentPane;
 
@@ -84,8 +85,9 @@ public class MainFrame extends JFrame {
 		 * Alexa
 		 * Natalia
 		 */
-		StrSetAdmin("Marco"); //set your name to get the right path
+		StrSetAdmin("Victor"); //set your name to get the right path
 		
+		defaultImagesPath = csrNetPath + "Shanghai\\part_A_final\\test_data\\images";
 		
 		//Global Vars
 		//File originalPic = new File(picPath);
@@ -156,7 +158,7 @@ public class MainFrame extends JFrame {
 		btnSubmit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					String modelPath = "python " + csrNetPath + "analyze.py " + csrNetPath + "ckpts\\model-76.28.pth.tar";
+					String modelPath = "python " + csrNetPath + "analyze.py " + csrNetPath + modelName;
 					String batLocation = "runAi.bat";
 					PrintWriter out = new PrintWriter(batLocation);
 					out.println("call " + condaLocation);
@@ -244,21 +246,25 @@ public class MainFrame extends JFrame {
 		{
 			csrNetPath = VictorCSR;
 			condaLocation = VictorConda;
+			modelName = "ckpts\\model.pth.tar ";
 		}
 		else if (admin == "Marco")
 		{
 			csrNetPath = MarcoCSR;
 			condaLocation = MarcoConda;
+			modelName = "ckpts\\model-76.28.pth.tar ";
 		}
 		else if (admin == "Alexa")
 		{
 			csrNetPath = AlexaCSR;
 			condaLocation = AlexaConda;
+			modelName = "ckpts\\model-76.28.pth.tar ";
 		}
 		else if (admin == "Natalia")
 		{
 			csrNetPath = NataliaCSR;
 			condaLocation = NataliaConda;
+			modelName = "ckpts\\model-76.28.pth.tar ";
 		}
 		
 	}
