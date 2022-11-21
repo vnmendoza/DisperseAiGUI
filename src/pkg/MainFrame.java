@@ -18,8 +18,10 @@ import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.PrintWriter;
 import java.awt.event.ActionEvent;
 import javax.swing.Icon;
 
@@ -60,7 +62,7 @@ public class MainFrame extends JFrame {
 		setBounds(100, 100, 1413, 815);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		JFileChooser fc = new JFileChooser();
+		JFileChooser fc = new JFileChooser("C:\\Users\\VNMen\\Documents\\SrDesign\\CSRNet-crowd_analysis\\Shanghai\\part_A_final\\test_data\\images");
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
@@ -123,10 +125,22 @@ public class MainFrame extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				//String[] cmd = {"echo", "hi"};
 				//String cmd = "python C:\\Users\\VNMen\\Documents\\SrDesign\\CSRNet-crowd_analysis\\analyze.py C:\\Users\\VNMen\\Documents\\SrDesign\\CSRNet-crowd_analysis\\ckpts\\model.pth.tar C:\\Users\\VNMen\\Documents\\SrDesign\\CSRNet-crowd_analysis\\ckpts\\Shanghai\\part_A_final\\test_data\\images\\IMG_2.jpg; dir";
-				String cmd = "python C:\\Users\\VNMen\\Documents\\SrDesign\\CSRNet-crowd_analysis\\helloworld.py";
+
+				String[] cmd = {"call C:\\Users\\VNMen\\anaconda3\\condabin\\activate.bat python37"
+						,"python --version",
+						"python C:\\Users\\VNMen\\Documents\\SrDesign\\CSRNet-crowd_analysis\\analyze.py C:\\Users\\VNMen\\Documents\\SrDesign\\CSRNet-crowd_analysis\\ckpts\\model.pth.tar C:\\Users\\VNMen\\Documents\\SrDesign\\CSRNet-crowd_analysis\\Shanghai\\part_A_final\\test_data\\images\\IMG_2.jpg"
+						};
+				
 				try {
-					 Process runtime = Runtime.getRuntime().exec(cmd);
-				     Show_Output(runtime);
+					String modelPath = "python C:\\Users\\VNMen\\Documents\\SrDesign\\CSRNet-crowd_analysis\\analyze.py C:\\Users\\VNMen\\Documents\\SrDesign\\CSRNet-crowd_analysis\\ckpts\\model.pth.tar ";
+					PrintWriter out = new PrintWriter("runAi.bat");
+					out.println("call C:\\Users\\VNMen\\anaconda3\\condabin\\activate.bat python37");
+					out.println("python --version");
+					out.println(modelPath + picPath);
+					out.close();
+					//Process runtime = Runtime.getRuntime().exec(cmd[0]);
+					Runtime.getRuntime().exec("cmd /c start \"\" runAi.bat");
+					//Show_Output(runtime);
 				} catch (IOException e1) {
 					//TODO Create more TOdos
 					// TODO Auto-generated catch block
