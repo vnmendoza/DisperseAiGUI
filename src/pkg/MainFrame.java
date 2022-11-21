@@ -22,6 +22,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.util.Vector;
 import java.awt.event.ActionEvent;
 import javax.swing.Icon;
 
@@ -33,6 +34,7 @@ public class MainFrame extends JFrame {
 	String condaLocation = "C:\\Users\\VNMen\\anaconda3\\condabin\\activate.bat python37";
 	JPanel panelOGPic;
 	JLabel picLabel;
+	JLabel lblNumber = new JLabel("number");
 	String defaultImagesPath = csrNetPath + "Shanghai\\part_A_final\\test_data\\images";
 	
 	private JPanel contentPane;
@@ -134,8 +136,13 @@ public class MainFrame extends JFrame {
 					out.println("python --version");
 					out.println(modelPath + picPath);
 					out.close();
-					batLocation = "cmd /c start \"\" " + batLocation;
-					Runtime.getRuntime().exec(batLocation);
+					//batLocation = "cmd /c start \"\" " + batLocation;
+					Process p = Runtime.getRuntime().exec(batLocation);
+					//Show_Output(p);
+					Vector<String> output = new Vector<String>(Record_Count(p));
+					String pplCount = (output.elementAt(output.size()-1));
+					lblNumber.setText(pplCount);
+					System.out.println("End");
 				} catch (IOException e1) {
 					e1.printStackTrace();
 				}
@@ -151,7 +158,6 @@ public class MainFrame extends JFrame {
 		lblCount.setBounds(621, 500, 55, 53);
 		contentPane.add(lblCount);
 		
-		JLabel lblNumber = new JLabel("number");
 		lblNumber.setFont(new Font("Tahoma", Font.PLAIN, 17));
 		lblNumber.setBounds(686, 516, 88, 21);
 		lblNumber.setText("100");
@@ -186,5 +192,16 @@ public class MainFrame extends JFrame {
         while ((output = output_reader.readLine()) != null) {
             System.out.println(output);
         }
+    }
+	public static Vector<String> Record_Count(Process process) throws IOException {
+        BufferedReader output_reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+        Vector<String> outputVec = new Vector<String>();
+        String output= "";
+        while ((output = output_reader.readLine()) != null) {
+            System.out.println(output);
+            outputVec.add(output);;
+        }
+        //System.out.println("output vec size: " + outputVec.size());
+        return outputVec;
     }
 }
