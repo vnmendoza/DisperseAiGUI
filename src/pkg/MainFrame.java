@@ -54,11 +54,15 @@ public class MainFrame extends JFrame {
 	String condaLocation = "";
 
 	JPanel panelOGPic;
+	JPanel gDPicPanel;
 	JLabel picLabel;
 	JLabel dPicLabel;
 	JLabel lblNumber = new JLabel("number");
 	String defaultImagesPath = csrNetPath + "Shanghai\\part_A_final\\test_data\\images";
 	String modelName = "ckpts\\model.pth.tar ";
+	
+	public static JFrame dPopUp; // pop up to display density map
+	
 
 	private JPanel contentPane;
 
@@ -93,6 +97,7 @@ public class MainFrame extends JFrame {
 		StrSetAdmin("Alexa"); //set your name to get the right path
 
 		defaultImagesPath = csrNetPath + "Shanghai\\part_A_final\\test_data\\images";
+		dPopUp = new JFrame("Density Map");
 
 		//Global Vars
 		//File originalPic = new File(picPath);
@@ -112,6 +117,17 @@ public class MainFrame extends JFrame {
 		contentPane.add(lblDisperseAi);
 
 
+		JLabel lblCount = new JLabel("Count:");
+		lblCount.setFont(new Font("Tahoma", Font.PLAIN, 17));
+		lblCount.setBounds(621, 500, 55, 53);
+		contentPane.add(lblCount);
+
+		JLabel lblNumber = new JLabel("number");
+		lblNumber.setFont(new Font("Tahoma", Font.PLAIN, 17));
+		lblNumber.setBounds(686, 516, 88, 21);
+		lblNumber.setText("100");
+		contentPane.add(lblNumber);
+		
 		panelOGPic = new JPanel();
 		//Default Original Picture
 		BufferedImage myPicture;
@@ -158,6 +174,7 @@ public class MainFrame extends JFrame {
 				int returnVal = fc.showOpenDialog(null);
 				if(returnVal == JFileChooser.APPROVE_OPTION)
 				{
+					dPopUp.setVisible(false);
 					originalPic = fc.getSelectedFile();
 					System.out.println("File Name: " + originalPic.getName());
 					System.out.println("File Location: " + originalPic.getAbsolutePath());
@@ -170,7 +187,7 @@ public class MainFrame extends JFrame {
 					}
 
 					picLabel.setIcon(new ImageIcon(oPic));
-
+					lblNumber.setText("0");
 				}
 
 			}
@@ -179,7 +196,11 @@ public class MainFrame extends JFrame {
 		btnUpload.setBounds(291, 506, 124, 47);
 		contentPane.add(btnUpload);
 
+		
 		JButton btnSubmit = new JButton("Submit");
+		btnSubmit.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		btnSubmit.setBounds(989, 506, 124, 47);
+		contentPane.add(btnSubmit);
 		btnSubmit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
@@ -197,39 +218,48 @@ public class MainFrame extends JFrame {
 					String pplCount = (output.elementAt(output.size()-1));
 					lblNumber.setText(pplCount);
 					System.out.println("End");
+					
+					// display density map pop up 					
+					// add image name here					
+					gDPicPanel = new JPanel();
+					BufferedImage gDPic;
+					
+					try {
+						gDPic = ImageIO.read(new File(generatedDPicPath));
+						Image scaledGDPic = gDPic.getScaledInstance(panelDensityPic.getWidth(), panelDensityPic.getHeight(), DO_NOTHING_ON_CLOSE);
+						dPicLabel = new JLabel(new ImageIcon(scaledGDPic));
+						gDPicPanel.add(dPicLabel);
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+
+					dPopUp.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+					dPopUp.setSize(700, 500);
+					dPopUp.setVisible(true);
+					dPopUp.add(gDPicPanel);
+					
+					
+					
+//					BufferedImage gDPic = null;
+//					try {
+//						gDPic = ImageIO.read(new File(generatedDPicPath));
+//						dPicLabel = new JLabel(new ImageIcon(gDPic));
+//						panelDensityPic.add(dPicLabel);
+//					} 
+//					catch (IOException e1) {
+//						e1.printStackTrace();
+//					}
+//					dPicLabel.setIcon(new ImageIcon(gDPic));
+					
 				} catch (IOException e1) {
 					e1.printStackTrace();
 				}
-//				BufferedImage gDPic = null;
-//				try {
-//					gDPic = ImageIO.read(new File(generatedDPicPath));
-//					dPicLabel = new JLabel(new ImageIcon(gDPic));
-//					panelDensityPic.add(dPicLabel);
-//				} 
-//				catch (IOException e1) {
-//					e1.printStackTrace();
-//				}
-//				dPicLabel.setIcon(new ImageIcon(gDPic));
+				
 
 			}
 		});
 
-
-
-		btnSubmit.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		btnSubmit.setBounds(989, 506, 124, 47);
-		contentPane.add(btnSubmit);
-
-		JLabel lblCount = new JLabel("Count:");
-		lblCount.setFont(new Font("Tahoma", Font.PLAIN, 17));
-		lblCount.setBounds(621, 500, 55, 53);
-		contentPane.add(lblCount);
-
-		JLabel lblNumber = new JLabel("number");
-		lblNumber.setFont(new Font("Tahoma", Font.PLAIN, 17));
-		lblNumber.setBounds(686, 516, 88, 21);
-		lblNumber.setText("100");
-		contentPane.add(lblNumber);
 
 	}
 
@@ -252,6 +282,12 @@ public class MainFrame extends JFrame {
 		//System.out.println("output vec size: " + outputVec.size());
 		return outputVec;
 	}
+	
+//	public static void Set_Count(JLabel lblNumber, String count) throws IOException {
+//	
+//		lblNumber.setText(count);
+//	}
+	
 	public void StrSetAdmin(String admin)
 	{
 		/*
