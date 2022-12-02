@@ -10,6 +10,7 @@ This project will help detect the quantity of big crowds(generally above 100 peo
 - Windows Operating System
 - Python 3.7
 - Java (19)
+- Anaconda
 - List of packages:
 
 |Package |                              Version|
@@ -39,5 +40,6 @@ wheel                      |        0.37.1|
 
 ## Set Up
 
-- git clone 
+- git clone https://github.com/vnmendoza/DisperseAiGUI/tree/alexa
+- Go to https://drive.google.com/file/d/1AUDSIoArx00xqM3KldPETNhwVW0JXSQE/view?usp=share_link and download 
 
