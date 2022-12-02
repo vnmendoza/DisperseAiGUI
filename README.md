@@ -41,7 +41,7 @@ wheel                      |        0.37.1|
 
 ## Set Up ⚙
 
-- git clone https://github.com/vnmendoza/DisperseAiGUI/tree/alexa
+- `git clone https://github.com/vnmendoza/DisperseAiGUI/tree/alexa`
 - Download the [Model](https://drive.google.com/file/d/1AUDSIoArx00xqM3KldPETNhwVW0JXSQE/view?usp=share_link) 
 - Edit the paths in `MainFrame.java` to your computer paths
 - Run the GUI
