@@ -41,5 +41,5 @@ wheel                      |        0.37.1|
 ## Set Up
 
 - git clone https://github.com/vnmendoza/DisperseAiGUI/tree/alexa
-- Go to https://drive.google.com/file/d/1AUDSIoArx00xqM3KldPETNhwVW0JXSQE/view?usp=share_link and download 
+- Download the [Model](https://drive.google.com/file/d/1AUDSIoArx00xqM3KldPETNhwVW0JXSQE/view?usp=share_link) 
 
