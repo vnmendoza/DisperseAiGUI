@@ -10,6 +10,7 @@ This project will help detect the quantity of big crowds(generally above 100 peo
 - Windows Operating System
 - Python 3.7
 - Java (19)
+  - Windows Builder Library   
 - Anaconda
 - List of packages:
 
@@ -42,4 +43,10 @@ wheel                      |        0.37.1|
 
 - git clone https://github.com/vnmendoza/DisperseAiGUI/tree/alexa
 - Download the [Model](https://drive.google.com/file/d/1AUDSIoArx00xqM3KldPETNhwVW0JXSQE/view?usp=share_link) 
+- Edit the paths in `MainFrame.java` to your computer paths
+- Run the GUI
+- Click on `Upload JPG`
+  - Select jpg with large crowd
+  - Click on `Process Image`
+- Wait (around 40 seconds) and then the denisty map will appear in a secondary screen
 
