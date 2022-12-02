@@ -11,9 +11,9 @@ This project will help detect the presence and movement of big crowds. The adven
 - Java (19)
 - List of packages:
 
-Package                            Version
+|Package |                              Version|
 ---------------------------------- -----------
-configparser                       4.0.2
+|configparser    |                   4.0.2|
 decorator                          4.4.2
 future                             0.18.2
 futures                            3.3.0
