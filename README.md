@@ -39,7 +39,7 @@ tornado                    |        5.1.1|
 wheel                      |        0.37.1|
 
 
-## Set Up
+## Set Up ⚙
 
 - git clone https://github.com/vnmendoza/DisperseAiGUI/tree/alexa
 - Download the [Model](https://drive.google.com/file/d/1AUDSIoArx00xqM3KldPETNhwVW0JXSQE/view?usp=share_link) 
