@@ -12,7 +12,7 @@ This project will help detect the presence and movement of big crowds. The adven
 - List of packages:
 
 |Package |                              Version|
----------------------------------- -----------
+|---------------------------------- |-----------|
 |configparser    |                   4.0.2|
 decorator                          4.4.2
 future                             0.18.2
