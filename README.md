@@ -2,7 +2,7 @@
 
 ## Summary
 
-This project will help detect the quantity of big crowds(generally above 100 people). A user can use this program to easily check a general quantity of a crowd within seconds. For organizations or events, This information can be relayed to an official who could help disperse a crowd. There is no training required to use this program and minimal setup. Using this program on images with less than 100 people will result in less accurate results.
+This project will help detect the quantity of big crowds(generally above 100 people). A user can use this program to easily check a general quantity of a crowd within seconds. For organizations or events, This information can be relayed to an official who could help disperse a crowd. There is no training required to use this program and minimal setup. Using this program on images with less than 100 people will result in less accurate results. 😎
 
 
 ## Requirements
